@@ -29,7 +29,7 @@
         .top-app-bar {
             height: 64px; display: flex; align-items: center; justify-content: space-between;
             padding: 0 16px; border-bottom: 1px solid var(--md-sys-color-surface-variant);
-            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(12px);
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
         }
         .logo { height: 32px; cursor: pointer; }
         .actions-group { display: flex; align-items: center; gap: 8px; }
@@ -51,10 +51,10 @@
         .card-footer { display: flex; justify-content: space-between; align-items: center; }
         .delete-btn { color: #B3261E; border: 1px solid #B3261E; border-radius: 12px; width: 44px; height: 44px; display: none; align-items: center; justify-content: center; cursor: pointer; background: transparent; }
 
-        /* Обновленный футер как в entry.html */
         footer { padding: 24px; text-align: center; font-size: 14px; opacity: 0.8; margin-top: 40px; border-top: 1px solid var(--md-sys-color-surface-variant); }
         
-        #user-avatar { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: none; object-fit: cover; border: 2px solid var(--md-sys-color-primary); }
+        /* Исправленные стили аватарки: меньше размер, нет обводки */
+        #user-avatar { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: none; object-fit: cover; border: none; }
     </style>
 </head>
 <body>
