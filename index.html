@@ -15,7 +15,7 @@
             --md-sys-color-on-surface: #1D1B20;
             --md-sys-color-surface-variant: #E7E0EC;
             --md-sys-color-on-surface-variant: #49454F;
-            --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+            --transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
         }
 
         [data-theme="dark"] {
@@ -26,14 +26,14 @@
             --md-sys-color-surface-variant: #49454F;
         }
 
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); transition: var(--transition); }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); }
 
-        /* --- HEADER: ЛОГО СЛЕВА, ВСЕ КНОПКИ СПРАВА --- */
+        /* --- HEADER --- */
         .top-app-bar {
             height: 64px;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Лого влево, группа вправо */
+            justify-content: space-between;
             padding: 0 16px;
             background: var(--md-sys-color-surface);
             border-bottom: 1px solid var(--md-sys-color-surface-variant);
@@ -42,7 +42,7 @@
 
         .logo { height: 32px; cursor: pointer; }
 
-        .actions-group { display: flex; align-items: center; gap: 4px; }
+        .actions-group { display: flex; align-items: center; gap: 8px; }
 
         .m3-icon-btn {
             width: 48px; height: 48px; border: none; background: none;
@@ -51,6 +51,12 @@
             transition: var(--transition); text-decoration: none;
         }
         .m3-icon-btn:hover { background: var(--md-sys-color-surface-variant); }
+        
+        /* Эффект выделения для активной страницы (Домик) */
+        .m3-icon-btn.active {
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+        }
 
         .m3-btn-filled {
             background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);
@@ -58,19 +64,20 @@
             font-weight: 500; cursor: pointer; transition: var(--transition);
         }
 
-        .badge-container { position: relative; }
-        .badge {
-            position: absolute; top: 4px; right: 4px;
-            background: #B3261E; color: white; font-size: 10px;
-            min-width: 16px; height: 16px; border-radius: 8px;
-            display: flex; justify-content: center; align-items: center;
-            pointer-events: none;
-        }
-
+        /* --- КОНТЕНТ --- */
         .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
-        .m3-card { background: var(--md-sys-color-surface-variant); border-radius: 28px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+        
+        .m3-card { 
+            background: var(--md-sys-color-surface-variant); 
+            border-radius: 28px; padding: 16px; 
+            display: flex; flex-direction: column; gap: 12px; 
+            transition: var(--transition);
+        }
+        .m3-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        
         .product-img { width: 100%; height: 200px; object-fit: cover; border-radius: 20px; background: #fff; }
+        .price-text { font-weight: 700; color: var(--md-sys-color-primary); font-size: 1.1rem; }
     </style>
 </head>
 <body>
@@ -79,28 +86,47 @@
         <img src="logo.png" class="logo" onclick="location.href='index.html'">
 
         <div class="actions-group">
-            <a href="index.html" class="m3-icon-btn" title="Главная"><span class="material-symbols-outlined">home</span></a>
+            <a href="index.html" class="m3-icon-btn active" title="Главная">
+                <span class="material-symbols-outlined">home</span>
+            </a>
             
-            <div class="badge-container">
-                <a href="cart.html" class="m3-icon-btn"><span class="material-symbols-outlined">shopping_cart</span></a>
-                <div id="cart-badge" class="badge">0</div>
-            </div>
+            <a href="cart.html" class="m3-icon-btn" title="Корзина">
+                <span class="material-symbols-outlined">shopping_cart</span>
+            </a>
 
-            <button class="m3-icon-btn" onclick="toggleTheme()"><span class="material-symbols-outlined" id="theme-icon">dark_mode</span></button>
+            <button class="m3-icon-btn" onclick="toggleTheme()" title="Тема">
+                <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+            </button>
             
             <button class="m3-btn-filled" style="margin-left: 8px;">Войти</button>
         </div>
     </header>
 
     <main class="container">
-        <h1 style="font-weight: 500;">Каталог пособий</h1>
+        <h1 style="font-weight: 500; margin-bottom: 32px;">Каталог пособий</h1>
         <div class="product-grid">
             <div class="m3-card">
                 <img src="1.png" class="product-img">
                 <h3 style="margin:0">Развивающее пособие</h3>
                 <div style="display:flex; justify-content: space-between; align-items: center;">
-                    <span style="font-weight:700; color:var(--md-sys-color-primary);">890 ₽</span>
+                    <span class="price-text">890 ₽</span>
                     <button class="m3-btn-filled" onclick="addToCart(1, 'Развивающее пособие', 890, '1.png')">Купить</button>
+                </div>
+            </div>
+            <div class="m3-card">
+                <img src="2.png" class="product-img">
+                <h3 style="margin:0">Умные карточки</h3>
+                <div style="display:flex; justify-content: space-between; align-items: center;">
+                    <span class="price-text">450 ₽</span>
+                    <button class="m3-btn-filled" onclick="addToCart(2, 'Умные карточки', 450, '2.png')">Купить</button>
+                </div>
+            </div>
+            <div class="m3-card">
+                <img src="3.png" class="product-img">
+                <h3 style="margin:0">Деревянная игра</h3>
+                <div style="display:flex; justify-content: space-between; align-items: center;">
+                    <span class="price-text">1200 ₽</span>
+                    <button class="m3-btn-filled" onclick="addToCart(3, 'Деревянная игра', 1200, '3.png')">Купить</button>
                 </div>
             </div>
         </div>
@@ -118,15 +144,14 @@
             applyTheme();
         }
         let cart = JSON.parse(localStorage.getItem('cartData')) || [];
-        function updateBadge() { document.getElementById('cart-badge').innerText = cart.length; }
         function addToCart(id, name, price, img) {
             if (!cart.find(i => i.id === id)) {
                 cart.push({ id, name, price, img });
                 localStorage.setItem('cartData', JSON.stringify(cart));
-                updateBadge();
+                alert('Товар добавлен в корзину!');
             }
         }
-        applyTheme(); updateBadge();
+        applyTheme();
     </script>
 </body>
 </html>
