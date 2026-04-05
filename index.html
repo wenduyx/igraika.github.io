@@ -42,12 +42,12 @@
         .card-footer { display: flex; justify-content: space-between; align-items: center; }
         .delete-btn { color: #B3261E; border: 1px solid #B3261E; border-radius: 12px; width: 44px; height: 44px; display: none; align-items: center; justify-content: center; cursor: pointer; background: transparent; }
     </style>
-</head>
+    </head>
 <body>
     <header class="top-app-bar">
         <img src="logo.png" class="logo" onclick="location.href='index.html'">
         <div class="actions-group">
-            <a href="index.html" class="m3-icon-btn"><span class="material-symbols-outlined">home</span></a>
+            <a href="index.html" class="m3-icon-btn active"><span class="material-symbols-outlined">home</span></a>
             <a href="cart.html" class="m3-icon-btn"><span class="material-symbols-outlined">shopping_cart</span></a>
             <button class="m3-icon-btn" onclick="toggleTheme()"><span class="material-symbols-outlined" id="theme-icon">dark_mode</span></button>
             <button class="m3-btn-filled">Войти</button>
@@ -56,45 +56,13 @@
     <main class="container">
         <h1 style="font-weight: 500; margin-bottom: 32px;">Каталог пособий</h1>
         <div class="product-grid" id="main-grid">
-            <div class="m3-card" id="product-4">
-                <img src="4.png" class="product-img">
-                <h3 style="margin:0; font-size: 1rem;">щплпо</h3>
-                <div class="card-footer">
-                    <span style="font-weight:700">128 ₽</span>
-                    <div style="display: flex; gap: 4px; align-items: center;">
-                        <button class="m3-btn-filled" id="buy-btn-4" onclick="handleCartAction(4, 'щплпо', 128, '4.png')">
-                            Купить
-                        </button>
-                        <button class="delete-btn" id="del-btn-4" onclick="removeFromCart(4)">
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="m3-card" id="product-3">
-                <img src="3.png" class="product-img">
-                <h3 style="margin:0; font-size: 1rem;">хахахах</h3>
-                <div class="card-footer">
-                    <span style="font-weight:700">21518 ₽</span>
-                    <div style="display: flex; gap: 4px; align-items: center;">
-                        <button class="m3-btn-filled" id="buy-btn-3" onclick="handleCartAction(3, 'хахахах', 21518, '3.png')">
-                            Купить
-                        </button>
-                        <button class="delete-btn" id="del-btn-3" onclick="removeFromCart(3)">
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
             <div class="m3-card" id="product-1">
                 <img src="1.png" class="product-img">
-                <h3 style="margin:0; font-size: 1rem;">гей</h3>
+                <h3 style="margin:0; font-size: 1rem;">Карточки "Алфавит" Печать 10x15 см</h3>
                 <div class="card-footer">
-                    <span style="font-weight:700">100 ₽</span>
+                    <span style="font-weight:700">250 ₽</span>
                     <div style="display: flex; gap: 4px; align-items: center;">
-                        <button class="m3-btn-filled" id="buy-btn-1" onclick="handleCartAction(1, 'гей', 100, '1.png')">
+                        <button class="m3-btn-filled" id="buy-btn-1" onclick="handleCartAction(1, 'Карточки "Алфавит" Печать 10x15 см', 250, '1.png')">
                             Купить
                         </button>
                         <button class="delete-btn" id="del-btn-1" onclick="removeFromCart(1)">
