@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детская Лавка — Каталог</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <style>
+        :root {
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005D;
+            --md-sys-color-surface: #FEF7FF;
+            --md-sys-color-on-surface: #1D1B20;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface-variant: #49454F;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --md-sys-color-primary: #D0BCFF;
+            --md-sys-color-on-primary: #381E72;
+            --md-sys-color-primary-container: #4F378B;
+            --md-sys-color-on-primary-container: #EADDFF;
+            --md-sys-color-surface: #141218;
+            --md-sys-color-on-surface: #E6E1E5;
+            --md-sys-color-surface-variant: #49454F;
+            --md-sys-color-on-surface-variant: #CAC4D0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            transition: var(--transition);
+        }
+
+        .top-app-bar {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            background-color: var(--md-sys-color-surface);
+            border-bottom: 1px solid var(--md-sys-color-surface-variant);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .logo { height: 40px; margin-right: 24px; cursor: pointer; }
+        .nav-group { flex-grow: 1; display: flex; gap: 8px; }
+
+        .m3-btn {
+            border: none; background: none;
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 20px; border-radius: 100px;
+            cursor: pointer; font-family: inherit; font-weight: 500;
+            color: var(--md-sys-color-on-surface-variant);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .m3-btn:hover { background-color: var(--md-sys-color-surface-variant); }
+        .m3-btn-filled { background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); }
+        .icon-btn { padding: 12px; border-radius: 50%; color: var(--md-sys-color-on-surface); }
+
+        .badge-container { position: relative; }
+        .badge {
+            position: absolute; top: 4px; right: 4px;
+            background-color: #B3261E; color: white;
+            font-size: 10px; min-width: 16px; height: 16px;
+            border-radius: 8px; display: flex; justify-content: center; align-items: center;
+        }
+
+        .container { max-width: 1200px; margin: 32px auto; padding: 0 16px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+
+        .m3-card {
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: 28px; padding: 16px;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+
+        .product-img { width: 100%; height: 200px; object-fit: cover; border-radius: 20px; background: #fff; }
+        .price { font-size: 1.2rem; font-weight: 700; color: var(--md-sys-color-primary); }
+    </style>
+</head>
+<body>
+
+    <header class="top-app-bar">
+        <img src="logo.png" alt="Logo" class="logo" onclick="location.href='index.html'">
+        <nav class="nav-group">
+            <a href="index.html" class="m3-btn"><span class="material-symbols-outlined">home</span>Главная</a>
+        </nav>
+
+        <div style="display: flex; gap: 8px; align-items: center;">
+            <button class="m3-btn icon-btn" onclick="toggleTheme()"><span class="material-symbols-outlined" id="theme-icon">dark_mode</span></button>
+            
+            <div class="badge-container">
+                <a href="cart.html" class="m3-btn icon-btn"><span class="material-symbols-outlined">shopping_cart</span></a>
+                <div id="cart-badge" class="badge">0</div>
+            </div>
+
+            <button class="m3-btn m3-btn-filled" onclick="alert('Вход скоро будет!')">Войти</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Каталог товаров</h2>
+        <div class="product-grid">
+            <div class="m3-card">
+                <img src="1.png" class="product-img">
+                <h3 style="margin:0">Набор для творчества</h3>
+                <span class="price">890 ₽</span>
+                <button class="m3-btn m3-btn-filled" onclick="addToCart(1, 'Набор для творчества', 890, '1.png')">В корзину</button>
+            </div>
+            <div class="m3-card">
+                <img src="2.png" class="product-img">
+                <h3 style="margin:0">Умные карточки</h3>
+                <span class="price">450 ₽</span>
+                <button class="m3-btn m3-btn-filled" onclick="addToCart(2, 'Умные карточки', 450, '2.png')">В корзину</button>
+            </div>
+            <div class="m3-card">
+                <img src="3.png" class="product-img">
+                <h3 style="margin:0">Деревянная игра</h3>
+                <span class="price">1200 ₽</span>
+                <button class="m3-btn m3-btn-filled" onclick="addToCart(3, 'Деревянная игра', 1200, '3.png')">В корзину</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Тема
+        function applyTheme() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('theme-icon').innerText = theme === 'dark' ? 'light_mode' : 'dark_mode';
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', next);
+            applyTheme();
+        }
+
+        // Корзина
+        let cart = JSON.parse(localStorage.getItem('cartData')) || [];
+
+        function addToCart(id, name, price, img) {
+            if (!cart.find(i => i.id === id)) {
+                cart.push({ id, name, price, img });
+                localStorage.setItem('cartData', JSON.stringify(cart));
+                updateBadge();
+            } else {
+                alert("Товар уже в корзине!");
+            }
+        }
+
+        function updateBadge() {
+            document.getElementById('cart-badge').innerText = cart.length;
+        }
+
+        applyTheme();
+        updateBadge();
+    </script>
+</body>
+</html>
