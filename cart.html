@@ -1,94 +1,115 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Корзина — Детская Лавка</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <title>Корзина — Играйка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <style>
-        /* (Копируем те же стили :root и body из index.html для консистентности) */
-        :root {
-            --md-sys-color-primary: #6750A4; --md-sys-color-on-primary: #FFFFFF;
-            --md-sys-color-surface: #FEF7FF; --md-sys-color-on-surface: #1D1B20;
-            --md-sys-color-surface-variant: #E7E0EC;
-        }
-        [data-theme="dark"] {
-            --md-sys-color-primary: #D0BCFF; --md-sys-color-on-primary: #381E72;
-            --md-sys-color-surface: #141218; --md-sys-color-on-surface: #E6E1E5;
-        }
-        body { margin: 0; font-family: 'Open Sans', sans-serif; background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); }
-        .top-app-bar { height: 64px; display: flex; align-items: center; padding: 0 16px; border-bottom: 1px solid var(--md-sys-color-surface-variant); }
-        .container { max-width: 800px; margin: 32px auto; padding: 0 16px; }
-        
+        /* [ВСТАВЬ СЮДА ВЕСЬ CSS ИЗ index.html — СТИЛИ ДОЛЖНЫ БЫТЬ ОДИНАКОВЫМИ] */
+        /* Дополнительные стили только для элементов корзины: */
         .cart-item {
-            display: flex; align-items: center; gap: 16px;
+            display: flex; align-items: center; gap: 20px;
             background: var(--md-sys-color-surface-variant);
-            padding: 16px; border-radius: 20px; margin-bottom: 12px;
+            padding: 20px; border-radius: 24px; margin-bottom: 16px;
         }
-        .cart-img { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; }
+        .cart-img { width: 100px; height: 100px; border-radius: 16px; object-fit: cover; background: #fff; }
         .cart-info { flex-grow: 1; }
-        .m3-btn { border: none; background: #B3261E; color: white; padding: 8px 16px; border-radius: 100px; cursor: pointer; }
-        .total-section { margin-top: 32px; text-align: right; font-size: 1.5rem; }
+        .delete-btn { color: #B3261E; background: none; border: none; cursor: pointer; }
+        .total-card {
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            padding: 24px; border-radius: 28px; text-align: right;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
 
     <header class="top-app-bar">
-        <button class="m3-btn" style="background:none; color:inherit;" onclick="location.href='index.html'">
-            <span class="material-symbols-outlined">arrow_back</span> Назад
-        </button>
-        <h2 style="margin-left: 16px;">Ваша корзина</h2>
+        <img src="logo.png" alt="Logo" class="logo" onclick="location.href='index.html'">
+        <div class="nav-actions">
+            <a href="index.html" class="m3-icon-btn"><span class="material-symbols-outlined">home</span></a>
+        </div>
+        <div class="right-actions">
+            <button class="m3-icon-btn" onclick="toggleTheme()"><span class="material-symbols-outlined" id="theme-icon">dark_mode</span></button>
+            <div class="badge-container">
+                <a href="cart.html" class="m3-icon-btn"><span class="material-symbols-outlined">shopping_cart</span></a>
+                <div id="cart-badge" class="badge">0</div>
+            </div>
+            <button class="m3-btn-filled">Войти</button>
+        </div>
     </header>
 
     <main class="container">
-        <div id="cart-list">
+        <h1 style="font-weight: 500; margin-bottom: 32px;">Ваша корзина</h1>
+        <div id="cart-list"></div>
+        
+        <div id="total-container" style="display: none;">
+            <div class="total-card">
+                <div style="font-size: 1rem; opacity: 0.8;">Общая стоимость:</div>
+                <div style="font-size: 2rem; font-weight: 700;"><span id="total-price">0</span> ₽</div>
+                <button class="m3-btn-filled" style="margin-top: 16px; width: 200px;">Оформить</button>
             </div>
-        <div class="total-section">
-            Итого: <span id="total-price">0</span> ₽
         </div>
     </main>
 
     <script>
-        const theme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', theme);
+        // Скрипт темы и бейджа такой же, как в index.html
+        function applyTheme() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('theme-icon').innerText = theme === 'dark' ? 'light_mode' : 'dark_mode';
+        }
+        function toggleTheme() {
+            const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', next);
+            applyTheme();
+        }
 
         let cart = JSON.parse(localStorage.getItem('cartData')) || [];
-        const listContainer = document.getElementById('cart-list');
-        const priceElement = document.getElementById('total-price');
 
-        function renderCart() {
+        function render() {
+            const list = document.getElementById('cart-list');
+            const totalCont = document.getElementById('total-container');
+            
             if (cart.length === 0) {
-                listContainer.innerHTML = "<h3>В корзине пока пусто :(</h3>";
-                priceElement.innerText = 0;
-                return;
+                list.innerHTML = `<div style="text-align:center; padding: 50px;">
+                    <span class="material-symbols-outlined" style="font-size: 64px; opacity: 0.3;">shopping_basket</span>
+                    <p>Корзина пуста</p>
+                </div>`;
+                totalCont.style.display = 'none';
+            } else {
+                list.innerHTML = '';
+                let total = 0;
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    list.innerHTML += `
+                        <div class="cart-item">
+                            <img src="${item.img}" class="cart-img">
+                            <div class="cart-info">
+                                <h3 style="margin:0">${item.name}</h3>
+                                <span class="price-tag">${item.price} ₽</span>
+                            </div>
+                            <button class="m3-icon-btn delete-btn" onclick="removeItem(${index})">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </div>`;
+                });
+                document.getElementById('total-price').innerText = total;
+                totalCont.style.display = 'block';
             }
-
-            listContainer.innerHTML = '';
-            let total = 0;
-
-            cart.forEach((item, index) => {
-                total += item.price;
-                listContainer.innerHTML += `
-                    <div class="cart-item">
-                        <img src="${item.img}" class="cart-img">
-                        <div class="cart-info">
-                            <h4 style="margin:0">${item.name}</h4>
-                            <span>${item.price} ₽</span>
-                        </div>
-                        <button class="m3-btn" onclick="removeItem(${index})">Удалить</button>
-                    </div>
-                `;
-            });
-            priceElement.innerText = total;
+            document.getElementById('cart-badge').innerText = cart.length;
         }
 
         function removeItem(index) {
             cart.splice(index, 1);
             localStorage.setItem('cartData', JSON.stringify(cart));
-            renderCart();
+            render();
         }
 
-        renderCart();
+        applyTheme();
+        render();
     </script>
 </body>
 </html>
