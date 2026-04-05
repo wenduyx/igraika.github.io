@@ -18,20 +18,42 @@
             --md-sys-color-surface: #1C1B1F; --md-sys-color-on-surface: #E6E1E5;
             --md-sys-color-surface-variant: #49454F; --md-sys-color-on-surface-variant: #CAC4D0;
         }
+
         html, body { height: 100%; margin: 0; }
-        body { font-family: 'Inter', sans-serif; background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); transition: var(--transition); display: flex; flex-direction: column; }
-        .top-app-bar { height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--md-sys-color-surface-variant); sticky; top: 0; z-index: 1000; backdrop-filter: blur(12px); }
+        body { 
+            font-family: 'Inter', sans-serif; background: var(--md-sys-color-surface); 
+            color: var(--md-sys-color-on-surface); transition: var(--transition);
+            display: flex; flex-direction: column;
+        }
+
+        .top-app-bar {
+            height: 64px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 16px; border-bottom: 1px solid var(--md-sys-color-surface-variant);
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(12px);
+        }
         .logo { height: 32px; cursor: pointer; }
         .actions-group { display: flex; align-items: center; gap: 8px; }
-        .m3-icon-btn { width: 48px; height: 48px; border: none; background: none; border-radius: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--md-sys-color-on-surface-variant); text-decoration: none; }
-        .m3-btn-filled { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; padding: 12px 24px; border-radius: 100px; font-weight: 600; cursor: pointer; }
+        
+        .m3-icon-btn {
+            width: 48px; height: 48px; border: none; background: none; border-radius: 24px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--md-sys-color-on-surface-variant); text-decoration: none;
+        }
+        .m3-btn-filled {
+            background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);
+            border: none; padding: 12px 20px; border-radius: 100px; font-weight: 600; cursor: pointer;
+        }
+        .m3-btn-filled.in-cart { background: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface-variant); cursor: default; }
+        
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; flex: 1; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
         .m3-card { background: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-surface-variant); border-radius: 28px; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
         .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 20px; background: #f0f0f0; }
         .card-footer { display: flex; justify-content: space-between; align-items: center; }
         .delete-btn { color: #B3261E; border: 1px solid #B3261E; border-radius: 12px; width: 44px; height: 44px; display: none; align-items: center; justify-content: center; cursor: pointer; background: transparent; }
-        footer { padding: 24px; background: var(--md-sys-color-surface-variant); text-align: center; border-top: 1px solid var(--md-sys-color-outline); margin-top: 40px; }
+
+        /* Обновленный футер как в entry.html */
+        footer { padding: 24px; text-align: center; font-size: 14px; opacity: 0.8; margin-top: 40px; border-top: 1px solid var(--md-sys-color-surface-variant); }
+        
         #user-avatar { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: none; object-fit: cover; border: 2px solid var(--md-sys-color-primary); }
     </style>
 </head>
@@ -50,15 +72,33 @@
     <main class="container">
         <h1 style="font-weight: 500; margin-bottom: 32px;">Каталог пособий</h1>
         <div class="product-grid" id="main-grid">
+            <div class="m3-card" id="product-2">
+                <img src="2.png" class="product-img">
+                <h3 style="margin:0; font-size: 1rem;">Мини набор »Щенок»</h3>
+                <div class="card-footer">
+                    <span style="font-weight:700">199 ₽</span>
+                    <div style="display: flex; gap: 4px; align-items: center;">
+                        <button class="m3-btn-filled" id="buy-btn-2" onclick="handleCartAction(2, 'Мини набор Щенок', 199, '2.png')">Купить</button>
+                        <button class="delete-btn" id="del-btn-2" onclick="removeFromCart(2)"><span class="material-symbols-outlined">delete</span></button>
+                    </div>
+                </div>
             </div>
+            <div class="m3-card" id="product-1">
+                <img src="1.png" class="product-img">
+                <h3 style="margin:0; font-size: 1rem;">Карточки »Алфавит» Печать 10x15 см</h3>
+                <div class="card-footer">
+                    <span style="font-weight:700">250 ₽</span>
+                    <div style="display: flex; gap: 4px; align-items: center;">
+                        <button class="m3-btn-filled" id="buy-btn-1" onclick="handleCartAction(1, 'Карточки Алфавит Печать 10x15 см', 250, '1.png')">Купить</button>
+                        <button class="delete-btn" id="del-btn-1" onclick="removeFromCart(1)"><span class="material-symbols-outlined">delete</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
-        <div style="opacity: 0.8; font-size: 14px;">
-            <strong>© 2026 Играйка</strong><br>
-            ИНН: 312326993017 | Самозанятый<br>
-            Белгород, Россия
-        </div>
+        ИНН: 312326993017 | Играйка 2026
     </footer>
 
     <script>
