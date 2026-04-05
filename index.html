@@ -3,215 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Играйка — Магазин пособий</title>
+    <title>Играйка — Магазин</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <style>
-        :root {
-            --md-sys-color-primary: #6750A4;
-            --md-sys-color-on-primary: #FFFFFF;
-            --md-sys-color-primary-container: #EADDFF;
-            --md-sys-color-on-primary-container: #21005D;
-            --md-sys-color-surface: #FFFBFE;
-            --md-sys-color-on-surface: #1C1B1F;
-            --md-sys-color-surface-variant: #E7E0EC;
-            --md-sys-color-on-surface-variant: #49454F;
-            --md-sys-color-outline: #79747E;
-            --transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+        :root { 
+            --md-sys-color-primary: #6750A4; 
+            --md-sys-color-on-primary: #FFFFFF; 
+            --md-sys-color-surface: #FFFBFE; 
+            --md-sys-color-on-surface: #1C1B1F; 
+            --md-sys-color-surface-variant: #E7E0EC; 
+            --md-sys-color-on-surface-variant: #49454F; 
+            --transition: all 0.3s cubic-bezier(0.2, 0, 0, 1); 
         }
-
-        [data-theme="dark"] {
-            --md-sys-color-primary: #D0BCFF;
-            --md-sys-color-on-primary: #381E72;
-            --md-sys-color-primary-container: #4F378B;
-            --md-sys-color-on-primary-container: #EADDFF;
-            --md-sys-color-surface: #1C1B1F;
-            --md-sys-color-on-surface: #E6E1E5;
-            --md-sys-color-surface-variant: #49454F;
-            --md-sys-color-on-surface-variant: #CAC4D0;
+        [data-theme="dark"] { 
+            --md-sys-color-primary: #D0BCFF; 
+            --md-sys-color-on-primary: #381E72; 
+            --md-sys-color-surface: #1C1B1F; 
+            --md-sys-color-on-surface: #E6E1E5; 
+            --md-sys-color-surface-variant: #49454F; 
+            --md-sys-color-on-surface-variant: #CAC4D0; 
         }
-
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); transition: var(--transition); }
-
-        .top-app-bar {
-            height: 64px; display: flex; align-items: center; justify-content: space-between;
-            padding: 0 16px; background: transparent;
-            border-bottom: 1px solid var(--md-sys-color-surface-variant);
-            position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-        }
-
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); }
+        .top-app-bar { height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--md-sys-color-surface-variant); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
         .logo { height: 32px; cursor: pointer; }
-        .actions-group { display: flex; align-items: center; gap: 8px; }
-
-        .m3-icon-btn {
-            width: 48px; height: 48px; border: none; background: none; border-radius: 24px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; color: var(--md-sys-color-on-surface-variant);
-            transition: var(--transition); text-decoration: none;
-        }
-        .m3-icon-btn:hover { background: var(--md-sys-color-surface-variant); }
-        .m3-icon-btn.active { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
-
-        .m3-btn-filled {
-            background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);
-            border: none; padding: 12px 20px; border-radius: 100px;
-            font-weight: 600; cursor: pointer; transition: var(--transition);
-        }
-        .m3-btn-filled.in-cart {
-            background: var(--md-sys-color-surface-variant);
-            color: var(--md-sys-color-on-surface-variant);
-            cursor: default;
-        }
-
+        .m3-icon-btn { width: 48px; height: 48px; border: none; background: none; border-radius: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--md-sys-color-on-surface-variant); text-decoration: none; }
+        .m3-btn-filled { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; padding: 12px 20px; border-radius: 100px; font-weight: 600; cursor: pointer; }
+        .m3-btn-filled.in-cart { background: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface-variant); cursor: default; }
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
-        
-        .m3-card { 
-            background: var(--md-sys-color-surface); 
-            border: 1px solid var(--md-sys-color-surface-variant);
-            border-radius: 28px; padding: 12px; 
-            display: flex; flex-direction: column; gap: 12px; transition: var(--transition);
-        }
-        .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 20px; background: #f0f0f0; }
+        .m3-card { background: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-surface-variant); border-radius: 28px; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+        .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 20px; }
         .card-footer { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-        
-        .delete-btn {
-            color: #B3261E; border: 1px solid #B3261E; border-radius: 12px;
-            width: 44px; height: 44px; display: none; align-items: center; justify-content: center;
-            cursor: pointer; transition: var(--transition); background: transparent;
-        }
+        .delete-btn { color: #B3261E; border: 1px solid #B3261E; border-radius: 12px; width: 44px; height: 44px; display: none; align-items: center; justify-content: center; cursor: pointer; background: transparent; }
     </style>
 </head>
 <body>
-
     <header class="top-app-bar">
         <img src="logo.png" class="logo" onclick="location.href='index.html'">
-        <div class="actions-group">
-            <a href="index.html" class="m3-icon-btn active"><span class="material-symbols-outlined">home</span></a>
+        <div style="display: flex; gap: 8px;">
+            <a href="index.html" class="m3-icon-btn"><span class="material-symbols-outlined">home</span></a>
             <a href="cart.html" class="m3-icon-btn"><span class="material-symbols-outlined">shopping_cart</span></a>
             <button class="m3-icon-btn" onclick="toggleTheme()"><span class="material-symbols-outlined" id="theme-icon">dark_mode</span></button>
-            <button class="m3-btn-filled">Войти</button>
         </div>
     </header>
-
     <main class="container">
-        <h1 style="font-weight: 500; margin-bottom: 32px;">Каталог пособий</h1>
-        
+        <h1>Каталог</h1>
         <div class="product-grid" id="main-grid">
-
-            
-            <div class="m3-card" id="product-1">
-                <img src="1.png" class="product-img">
-                <h3 style="margin:0; font-size: 1rem;">Алфавит</h3>
-                <div class="card-footer">
-                    <span style="font-weight:700">1488 ₽</span>
-                    <div style="display: flex; gap: 4px; align-items: center;">
-                        <button class="m3-btn-filled" id="buy-btn-1" onclick="handleCartAction(1, 'Алфавит', 1488, '1.png')">
-                            Купить
-                        </button>
-                        <button class="delete-btn" id="del-btn-1" onclick="removeFromCart(1)">
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
-                    </div>
-                </div>
             </div>
-        
-            <div class="m3-card" id="product-2">
-                <img src="2.png" class="product-img">
-                <h3 style="margin:0; font-size: 1rem;">гей</h3>
-                <div class="card-footer">
-                    <span style="font-weight:700">10 ₽</span>
-                    <div style="display: flex; gap: 4px; align-items: center;">
-                        <button class="m3-btn-filled" id="buy-btn-2" onclick="handleCartAction(2, 'гей', 10, '2.png')">
-                            Купить
-                        </button>
-                        <button class="delete-btn" id="del-btn-2" onclick="removeFromCart(2)">
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
-
     <script>
         let cart = JSON.parse(localStorage.getItem('cartData')) || [];
-
         function applyTheme() {
-            const theme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', theme);
-            document.getElementById('theme-icon').innerText = theme === 'dark' ? 'light_mode' : 'dark_mode';
+            const t = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', t);
+            document.getElementById('theme-icon').innerText = t === 'dark' ? 'light_mode' : 'dark_mode';
         }
-
         function toggleTheme() {
-            const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('theme', next);
-            applyTheme();
+            const n = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', n); applyTheme();
         }
-
         function refreshButtons() {
             document.querySelectorAll('.m3-card').forEach(card => {
-                const id = parseInt(card.id.replace('product-', ''));
-                const inCart = cart.find(item => item.id === id);
-                const btn = document.getElementById(`buy-btn-${id}`);
-                const del = document.getElementById(`del-btn-${id}`);
-                
+                const id = card.id.replace('product-', '');
+                const inCart = cart.find(i => i.id == id);
+                const btn = document.getElementById('buy-btn-' + id);
+                const del = document.getElementById('del-btn-' + id);
                 if (inCart && btn && del) {
-                    btn.innerText = 'В корзине';
-                    btn.classList.add('in-cart');
-                    del.style.display = 'flex';
+                    btn.innerText = 'В корзине'; btn.classList.add('in-cart'); del.style.display = 'flex';
                 } else if (btn && del) {
-                    btn.innerText = 'Купить';
-                    btn.classList.remove('in-cart');
-                    del.style.display = 'none';
+                    btn.innerText = 'Купить'; btn.classList.remove('in-cart'); del.style.display = 'none';
                 }
             });
         }
-
         function handleCartAction(id, name, price, img) {
-            if (cart.find(i => i.id === id)) return;
+            if (cart.find(i => i.id == id)) return;
             cart.push({ id, name, price, img });
-            localStorage.setItem('cartData', JSON.stringify(cart));
-            refreshButtons();
+            localStorage.setItem('cartData', JSON.stringify(cart)); refreshButtons();
         }
-
         function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            localStorage.setItem('cartData', JSON.stringify(cart));
-            refreshButtons();
+            cart = cart.filter(i => i.id != id);
+            localStorage.setItem('cartData', JSON.stringify(cart)); refreshButtons();
         }
-
-        applyTheme();
-        window.onload = refreshButtons;
+        applyTheme(); window.onload = refreshButtons;
     </script>
 </body>
-</html>            padding: 0 16px; background: transparent;
-            border-bottom: 1px solid var(--md-sys-color-surface-variant);
-            position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-        }
-
-        .logo { height: 32px; cursor: pointer; }
-        .actions-group { display: flex; align-items: center; gap: 8px; }
-
-        .m3-icon-btn {
-            width: 48px; height: 48px; border: none; background: none; border-radius: 24px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; color: var(--md-sys-color-on-surface-variant);
-            transition: var(--transition); text-decoration: none;
-        }
-        .m3-icon-btn:hover { background: var(--md-sys-color-surface-variant); }
-        .m3-icon-btn.active { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
-
-        .m3-btn-filled {
-            background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);
-            border: none; padding: 12px 20px; border-radius: 100px;
-            font-weight: 600; cursor: pointer; transition: var(--transition);
-        }
-        .m3-btn-filled.in-cart {
-            background: var(--md-sys-color-surface-variant);
-            color: var(--md-sys-color-on-surface-variant);
-            cursor: default;
+</html>
         }
 
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
